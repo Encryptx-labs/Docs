@@ -37,6 +37,7 @@ Encryptix uses Fully Homomorphic Encryption (FHE) to provide anonymity for users
 ---
 
 ## Workflow
+<img width="1320" alt="Excalidraw" src="https://github.com/user-attachments/assets/328e8658-3936-4ccc-abc9-c9fa854f8d23">
 
 ### User Journey
 
@@ -89,6 +90,21 @@ Linea Blockchain plays a pivotal role in the Encryptix Protocol by serving as th
 ---
 
 ## Smart Contract Design
+
+## Protocol Architecture and User Flow
+
+Encryptix's architecture leverages the combined power of Linea Blockchain, Inco's encrypted storage, and Hyperlane's cross-chain messaging to create a seamless event ticketing experience. The protocol's user flow ensures a smooth interaction for organizers and attendees, from ticket purchases to verifications:
+
+1. **User Registration**: Users can connect wallets using Privy or generate local wallets for anonymous interactions.
+2. **Ticket Storage**: Credentials, such as NFTs and USDC, are securely stored on Linea Blockchain. Encrypted ticket data is offloaded to Inco, functioning as an IPFS-like storage but with enhanced privacy features.
+3. **Verification Process**: During verification, the organizer uses re-encryption calls via the Inco gateway to validate encrypted credentials. This ensures privacy while enabling seamless event access.
+4. **Composable Computations**: Linea Blockchain enables advanced computations with encrypted data, allowing features like lotteries, identity management, and future data retrieval without exposing sensitive information.
+
+The flow diagram showcases the streamlined process for both users and organizers, highlighting the integration of cryptographic operations, data storage, and cross-chain communication:
+
+![Encryptix Protocol Architecture](https://github.com/user-attachments/assets/ee2c322c-2adb-4bb2-adfd-f64fca13ce37)
+
+---
 
 ### Key Components
 
