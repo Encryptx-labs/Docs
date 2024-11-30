@@ -17,12 +17,12 @@ Encryptix enables event organizers to host events and users to securely purchase
 ### 2. **Anonymity with FHE**
 Encryptix uses Fully Homomorphic Encryption (FHE) to provide anonymity for users opting for the "Anon Ticket" option. This ensures:
 - The encrypted holder address is stored on the blockchain.
-- Ciphertext is securely stored off-chain using the Inco platform.
+- Ciphertext is securely stored on-chain using the Inco platform.
 - Event organizers can verify encrypted tickets without revealing user identities.
 
 ### 3. **Decentralized Architecture**
 - **Linea Blockchain**: Stores encrypted holder addresses.
-- **Inco Storage**: Functions as encrypted off-chain storage, similar to IPFS but with privacy-preserving capabilities.
+- **Inco Storage**: Functions as encrypted on-chain storage, similar to IPFS but with privacy-preserving capabilities.
 - **Hyperlane SDK**: Ensures secure cross-chain messaging.
 
 ### 4. **Enhanced User Experience**
@@ -52,7 +52,7 @@ Encryptix uses Fully Homomorphic Encryption (FHE) to provide anonymity for users
 
 3. **Data Storage**:
    - The encrypted holder address is stored on Linea.
-   - Ciphertext is stored off-chain on Inco via Hyperlane SDK.
+   - Ciphertext is stored on-chain on Inco L1 via Hyperlane SDK.
 
 4. **QR Code Generation**:
    - A QR code is generated containing:
@@ -73,7 +73,7 @@ Encryptix uses Fully Homomorphic Encryption (FHE) to provide anonymity for users
 ---
 
 $1### Why Linea Blockchain is a Key Choice
-Linea Blockchain plays a pivotal role in the Encryptix Protocol by serving as the backbone for storing essential credentials such as NFTs, USDC, and user-specific data. While Inco is utilized as an encrypted IPFS-like gateway for secure off-chain data storage, Linea ensures on-chain accessibility and integrity. Moreover, Linea's composability allows encrypted keys and data to be used in advanced computations, enabling unique features like secure identity management and future data retrieval without compromising privacy. By combining Linea's robust blockchain capabilities with Inco's privacy-focused encrypted storage, Encryptix provides a seamless and secure user experience.
+Linea Blockchain plays a pivotal role in the Encryptix Protocol by serving as the backbone for storing essential credentials such as NFTs, USDC, and user-specific data. While Inco is utilized as an encrypted IPFS-like gateway for secure on-chain data storage, Linea ensures on-chain accessibility and integrity. Moreover, Linea's composability allows encrypted keys and data to be used in advanced computations, enabling unique features like secure identity management and future data retrieval without compromising privacy. By combining Linea's robust blockchain capabilities with Inco's privacy-focused encrypted storage, Encryptix provides a seamless and secure user experience.
 
 - **Composability**:
   - FHE allows cryptographic operations to be performed directly on encrypted data.
@@ -137,7 +137,7 @@ Manages encrypted ticket verification and raffle operations.
 
 ### Cross-Chain Messaging
 - **Hyperlane SDK**:
-  - Facilitates communication between Linea and Inco.
+  - Facilitates communication between Linea and Inco L1.
   - Handles encrypted data transfer securely.
 
 ### FHE Integration
