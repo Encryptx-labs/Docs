@@ -7,6 +7,27 @@ Encryptix enables event organizers to host events and users to securely purchase
 
 ---
 
+## Related Repositories
+
+- **Frontend Repository**  
+  This is the repository containing the frontend code for the Encryptix platform. It's built using Next.js and provides the user interface for interacting with the protocol.  
+  [Frontend Repo Link](https://github.com/Encryptx-labs/encryptx-client)
+
+- **Contract Repository**  
+  This repository includes all the smart contract code for the Encryptix protocol, handling all the on-chain logic.  
+  [Contract Repo Link](https://github.com/Encryptx-labs/encryptx-contracts)
+
+- **Hyperlane Config Repository**  
+  This repository contains the Hyperlane configuration for cross-chain communication, enabling secure and private ticketing across multiple chains.  
+  [Hyperlane Config Repo Link](https://github.com/Encryptx-labs/hyperlane)
+
+- **Mailer**  
+  This repository contains the mailer code for mailing QR codes.  
+  [Mailer Repo Link](https://github.com/Encryptx-labs/mailer)
+
+---
+
+
 ## Key Features
 
 ### 1. **Multi-User Support**
