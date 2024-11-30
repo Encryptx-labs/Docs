@@ -1,170 +1,179 @@
-# **Encryptix Protocol Documentation**  
-*Revolutionizing event ticketing with Web3 technology*
+# Encryptix Protocol Documentation
+
+## Overview
+Encryptix is an on-chain event ticketing platform designed for anonymous users, Web2 users, and Web3 users. It offers a seamless user experience comparable to platforms like Luma, leveraging advanced cryptographic techniques like Fully Homomorphic Encryption (FHE) and Account Abstraction (AA) to ensure privacy and interoperability.
+
+Encryptix enables event organizers to host events and users to securely purchase tickets while maintaining anonymity or interacting through traditional Web3 wallets. For anonymous users, Encryptix ensures that their identities are hidden while allowing seamless event participation.
 
 ---
 
-## Related Repositories
+## Key Features
 
-- **Frontend Repository**  
-  This is the repository containing the frontend code for the Encryptix platform. It's built using Next.js and provides the user interface for interacting with the protocol.  
-  [Frontend Repo Link](https://github.com/Encryptx-labs/encryptx-client)
+### 1. **Multi-User Support**
+- **Web3 Users**: Standard wallet-based interaction.
+- **Web2 Users**: Access via Account Abstraction (AA) and gasless transactions.
+- **Anonymous Users**: Encrypted wallet addresses and secure ticket validation through FHE.
 
-- **Contract Repository**  
-  This repository includes all the smart contract code for the Encryptix protocol, handling all the on-chain logic.  
-  [Contract Repo Link](https://github.com/Encryptx-labs/encryptx-contracts)
+### 2. **Anonymity with FHE**
+Encryptix uses Fully Homomorphic Encryption (FHE) to provide anonymity for users opting for the "Anon Ticket" option. This ensures:
+- The encrypted holder address is stored on the blockchain.
+- Ciphertext is securely stored off-chain using the Inco platform.
+- Event organizers can verify encrypted tickets without revealing user identities.
 
-- **Hyperlane Config Repository**  
-  This repository contains the Hyperlane configuration for cross-chain communication, enabling secure and private ticketing across multiple chains.  
-  [Hyperlane Config Repo Link](https://github.com/Encryptx-labs/hyperlane)
+### 3. **Decentralized Architecture**
+- **Linea Blockchain**: Stores encrypted holder addresses.
+- **Inco Storage**: Functions as encrypted off-chain storage, similar to IPFS but with privacy-preserving capabilities.
+- **Hyperlane SDK**: Ensures secure cross-chain messaging.
 
-- **Mailer**  
-  This repository contains the mailer code for mailing QR codes.  
-  [Mailer Repo Link](https://github.com/Encryptx-labs/mailer)
+### 4. **Enhanced User Experience**
+- Local wallet generation for ticket holding.
+- Gasless transactions for Web2 users.
+- Ticket details embedded in QR codes for easy verification.
 
----
-
-## **Overview**  
-The Encryptix Protocol is an innovative event ticketing platform leveraging blockchain technology to bring transparency, security, and user empowerment. By eliminating intermediaries and introducing account abstraction through Privy, Encryptix simplifies ticket issuance, transfer, and resale.
-
-This documentation provides a deep dive into the architecture, technical components, and implementation details to help developers and stakeholders understand the protocol thoroughly.
-
----
-
-## **Features**  
-- **Decentralized Ticketing**: Complete transparency in ticket creation, sales, and resales.  
-- **Account Abstraction**: Users interact seamlessly with blockchain through Privy's embedded wallet solution.  
-- **Social Login**: Simple authentication via email, social accounts, or existing wallets through Privy.  
-- **User-Friendly Interface**: Built on **Next.js** for a smooth and intuitive frontend experience.  
-- **Secure Transactions**: Leveraging blockchain immutability to prevent fraud and forgery.  
+### 5. **FHE Integration**
+- User identity and ticket ownership verification via re-encryption calls provided by the Inco gateway.
+- Composable cryptographic operations allow users to interact seamlessly across events, win lotteries, and more.
 
 ---
 
-## **Architecture**  
+## Workflow
 
-### **High-Level Architecture**  
-The Encryptix Protocol architecture consists of three major components:  
-1. **Frontend (Next.js)**:  
-   - Provides a seamless user experience for event organizers and attendees.  
-   - Includes features for ticket creation, transfer, and resale.  
+### User Journey
 
-2. **Smart Contracts**:  
-   - Powers the core functionality of ticket management, ownership transfers, and resale royalties.  
-   - Built with **Solidity**, leveraging ERC-721 for unique ticket representation.  
+1. **User Registration**:
+   - Connect a wallet using Privy (for Web3 users).
+   - Generate a fresh wallet locally (for anonymous users).
 
-3. **Privy Integration**:  
-   - **Embedded Wallets**: Provides secure, user-friendly wallet solution using account abstraction.  
-   - **Authentication**: Handles user authentication through various social logins and existing wallets.  
-   - **Transaction Management**: Simplifies transaction signing and management.  
+2. **Ticket Purchase**:
+   - Approve USDC transfer for the event contract.
+   - Generate a pair of public and private keys for ticket holding.
+   - Encrypt the public key using the `fhevmjs` SDK.
 
----
+3. **Data Storage**:
+   - The encrypted holder address is stored on Linea.
+   - Ciphertext is stored off-chain on Inco via Hyperlane SDK.
 
-### **Detailed Architecture Flow**  
-Below is an overview of the workflow:  
+4. **QR Code Generation**:
+   - A QR code is generated containing:
+     - EIP-712 signed message.
+     - Hash of ticket information.
 
-1. **Ticket Issuance**:  
-   - Event organizers deploy an ERC-721 smart contract to mint unique tickets.  
-   - Metadata includes event details, seat number, and royalty terms for resales.
+5. **Verification**:
+   - The event organizer uses Inco’s re-encrypt functionality to securely verify ticket ownership.
+   - Cross-checks the QR code, signature, and ticket information.
 
-2. **Wallet Creation and Authentication**:  
-   - Users can log in using email, social accounts, or existing wallets through Privy.  
-   - Each user gets an embedded wallet powered by account abstraction.  
-   - Wallets are non-custodial and fully controlled by users.  
+### Organizer Workflow
 
-3. **Transaction Management**:  
-   - Users interact with the protocol through Privy's simplified transaction interface.  
-   - Account abstraction enables advanced transaction features like batching and sponsored transactions.  
-
-4. **Secondary Market**:  
-   - Tickets can be resold securely within the platform.  
-   - Royalties for organizers and creators are automated via smart contracts.  
+1. Deploy an event contract on Linea blockchain.
+2. Specify event details (e.g., name, ticket price, location).
+3. Verify attendee tickets by using re-encryption calls and comparing against QR code data.
+4. Conduct raffles or special activities using encrypted ticket data.
 
 ---
 
-## **Tech Stack**  
+$1### Why Linea Blockchain is a Key Choice
+Linea Blockchain plays a pivotal role in the Encryptix Protocol by serving as the backbone for storing essential credentials such as NFTs, USDC, and user-specific data. While Inco is utilized as an encrypted IPFS-like gateway for secure off-chain data storage, Linea ensures on-chain accessibility and integrity. Moreover, Linea's composability allows encrypted keys and data to be used in advanced computations, enabling unique features like secure identity management and future data retrieval without compromising privacy. By combining Linea's robust blockchain capabilities with Inco's privacy-focused encrypted storage, Encryptix provides a seamless and secure user experience.
 
-### **Backend**  
-- **Smart Contracts**:  
-  - Written in Solidity.  
-  - Implements ERC-721 for NFT-based tickets.  
-  - Manages royalties, ownership, and event metadata.
+- **Composability**:
+  - FHE allows cryptographic operations to be performed directly on encrypted data.
+  - Enables seamless interoperability across events.
+  
+- **Identity Reusability**:
+  - Users can reuse their encrypted addresses (eAddresses) for interactions within an event.
+  - Supports advanced functionalities like prize distribution or anonymous messaging.
 
-### **Frontend**  
-- **Framework**: Built with **Next.js** for fast, modern web applications.  
-- **UI/UX**: Responsive design and intuitive ticketing interface.  
-- **Integration**: Direct connection with blockchain via ethers.js and Privy SDK.  
-
-### **Authentication & Wallet**  
-- **Privy**:  
-  - Handles user authentication and wallet creation.  
-  - Implements account abstraction for improved UX.
-  - Manages transaction signing and execution.
-
-### **Blockchain**  
-- Supports **EVM-compatible chains** to ensure broad accessibility.  
+- **Flexibility**:
+  - Linea contracts can access unique keys and perform computations.
+  - Users can retrieve results in the future without revealing sensitive data.
 
 ---
 
-## **Setup and Installation**  
+## Smart Contract Design
 
-### **Prerequisites**  
-1. **Node.js** (v16 or later)  
-2. **npm** or **yarn**  
-3. **Privy API Keys** (obtain from Privy Dashboard)  
-4. **EVM-compatible testnet** credentials (e.g., Goerli, Polygon Testnet)  
+### Key Components
 
-### **Clone the Repository**  
-```bash
-git clone https://github.com/your-repository/Encryptix.git
-cd Encryptix
-```
+#### 1. **OriginEventContract**
+Handles ticket purchases and communication with Inco and Hyperlane.
+- **Features**:
+  - User registration and USDC payment handling.
+  - Encrypted data storage and QR code generation.
+  - Cross-chain message dispatch to Inco.
 
-### **Install Dependencies**  
-```bash
-npm install
-# or
-yarn install
-```
+#### 2. **IncoEventContract**
+Manages encrypted ticket verification and raffle operations.
+- **Features**:
+  - Deterministic key generation for token management.
+  - Secure re-encryption for ticket validation.
+  - Encrypted random number generation for raffles.
 
-### **Configure Privy**  
-1. Create a `.env.local` file in the root directory
-2. Add your Privy API keys:
-```env
-NEXT_PUBLIC_PRIVY_APP_ID=your-app-id
-```
+### Data Structures
+- **Mappings**:
+  - `tokenKeyToEaddressToAmount`: Maps token keys to encrypted addresses and ticket amounts.
+  - `requestIdToStruct`: Tracks origin chain and event contract details for callback handling.
 
-### **Run the Application**  
-#### Development Server  
-```bash
-npm run dev
-# or
-yarn dev
-```
-Visit `http://localhost:3000` to access the platform locally.  
-
-#### Deploy Smart Contracts  
-1. Configure `hardhat.config.js` with your network credentials.  
-2. Deploy contracts:  
-   ```bash
-   npx hardhat run scripts/deploy.js --network <network_name>
-   ```  
+- **Events**:
+  - `TokenProcessed`: Emitted when a ticket purchase is completed.
+  - `TokenPurchased`: Emitted when a user buys a ticket.
 
 ---
 
-## **Demo Video**  
-[Watch the Demo](#)  
-*(Replace with actual link)*  
+## Technical Details
+
+### Cross-Chain Messaging
+- **Hyperlane SDK**:
+  - Facilitates communication between Linea and Inco.
+  - Handles encrypted data transfer securely.
+
+### FHE Integration
+- **fhevmjs SDK**:
+  - Generates public-private key pairs for ticket holding.
+  - Encrypts public keys for storage.
+
+- **TFHE Library**:
+  - Performs re-encryption for ticket validation.
+  - Supports composable cryptographic operations.
+
+### QR Code Verification
+1. QR code contains:
+   - Encrypted ticket data.
+   - Signature for validation.
+
+2. Organizer verifies:
+   - eAddress using re-encryption.
+   - User’s signed message against the QR code data.
 
 ---
 
-## **Use Cases**  
-- **Event Organizers**: Create and distribute tickets transparently.  
-- **Attendees**: Securely purchase and transfer tickets.  
-- **Secondary Markets**: Resale with guaranteed royalties for creators.  
+## Example Use Cases
+
+### 1. **Anonymous Event Participation**
+- Users can attend events without revealing personal information.
+- Participate in lotteries and receive rewards using encrypted identities.
+
+### 2. **Seamless Web2 Integration**
+- Users interact using familiar Web2 interfaces while enjoying Web3 benefits like privacy and transparency.
+
+### 3. **Raffles and Lotteries**
+- Event organizers can randomly select winners using encrypted ticket data.
 
 ---
 
-## **Future Scope**  
-- Expand compatibility to additional blockchains.  
-- Introduce more robust analytics for event organizers.  
-- Collaborate with partners for ticket verification at venues.  
-- Implement advanced account abstraction features.
+## Future Enhancements
+
+1. **Enhanced Interoperability**:
+   - Support for additional blockchains and cross-chain messaging protocols.
+
+2. **Anonymous Communication**:
+   - Enable attendees to communicate anonymously within events using eAddresses.
+
+3. **Dynamic Pricing Models**:
+   - Allow ticket prices to adjust based on demand or time.
+
+4. **Integration with dApps**:
+   - Collaborate with DeFi and NFT platforms for ticket resales and rewards.
+
+---
+
+## Conclusion
+Encryptix redefines event ticketing with cutting-edge cryptography and blockchain technology. By leveraging FHE, Hyperlane, and AA wallets, it creates a user-friendly platform that prioritizes privacy, security, and composability. Whether for anonymous users, Web2 adopters, or seasoned Web3 enthusiasts, Encryptix ensures a seamless and secure ticketing experience.
+
