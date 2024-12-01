@@ -1,11 +1,32 @@
-# StealthPass Protocol Documentation
+# Encryptix Protocol Documentation
 
 ## Overview
-StealthPass is an on-chain event ticketing platform designed for anonymous users, Web2 users, and Web3 users. It offers a seamless user experience comparable to platforms like Luma, leveraging advanced cryptographic techniques like Fully Homomorphic Encryption (FHE) and Account Abstraction (AA) to ensure privacy and interoperability.
+Encryptix is an on-chain event ticketing platform designed for anonymous users, Web2 users, and Web3 users. It offers a seamless user experience comparable to platforms like Luma, leveraging advanced cryptographic techniques like Fully Homomorphic Encryption (FHE) and Account Abstraction (AA) to ensure privacy and interoperability.
 
-StealthPass enables event organizers to host events and users to securely purchase tickets while maintaining anonymity or interacting through traditional Web3 wallets. For anonymous users, StealthPass ensures that their identities are hidden while allowing seamless event participation.
+Encryptix enables event organizers to host events and users to securely purchase tickets while maintaining anonymity or interacting through traditional Web3 wallets. For anonymous users, Encryptix ensures that their identities are hidden while allowing seamless event participation.
 
 ---
+
+## Related Repositories
+
+- **Frontend Repository**  
+  This is the repository containing the frontend code for the Encryptix platform. It's built using Next.js and provides the user interface for interacting with the protocol.  
+  [Frontend Repo Link](https://github.com/Encryptx-labs/encryptx-client)
+
+- **Contract Repository**  
+  This repository includes all the smart contract code for the Encryptix protocol, handling all the on-chain logic.  
+  [Contract Repo Link](https://github.com/Encryptx-labs/encryptx-contracts)
+
+- **Hyperlane Config Repository**  
+  This repository contains the Hyperlane configuration for cross-chain communication, enabling secure and private ticketing across multiple chains.  
+  [Hyperlane Config Repo Link](https://github.com/Encryptx-labs/hyperlane)
+
+- **Mailer**  
+  This repository contains the mailer code for mailing QR codes.  
+  [Mailer Repo Link](https://github.com/Encryptx-labs/mailer)
+
+---
+
 
 ## Key Features
 
@@ -15,13 +36,13 @@ StealthPass enables event organizers to host events and users to securely purcha
 - **Anonymous Users**: Encrypted wallet addresses and secure ticket validation through FHE.
 
 ### 2. **Anonymity with FHE**
-StealthPass uses Fully Homomorphic Encryption (FHE) to provide anonymity for users opting for the "Anon Ticket" option. This ensures:
+Encryptix uses Fully Homomorphic Encryption (FHE) to provide anonymity for users opting for the "Anon Ticket" option. This ensures:
 - The encrypted holder address is stored on the blockchain.
 - Ciphertext is securely stored on-chain using the Inco platform.
 - Event organizers can verify encrypted tickets without revealing user identities.
 
 ### 3. **Decentralized Architecture**
-- **Base Blockchain**: Stores encrypted holder addresses.
+- **Linea Blockchain**: Stores encrypted holder addresses.
 - **Inco Storage**: Functions as encrypted on-chain storage, similar to IPFS but with privacy-preserving capabilities.
 - **Hyperlane SDK**: Ensures secure cross-chain messaging.
 
@@ -37,6 +58,7 @@ StealthPass uses Fully Homomorphic Encryption (FHE) to provide anonymity for use
 ---
 
 ## Workflow
+<img width="1320" alt="Excalidraw" src="https://github.com/user-attachments/assets/328e8658-3936-4ccc-abc9-c9fa854f8d23">
 
 ### User Journey
 
@@ -50,7 +72,7 @@ StealthPass uses Fully Homomorphic Encryption (FHE) to provide anonymity for use
    - Encrypt the public key using the `fhevmjs` SDK.
 
 3. **Data Storage**:
-   - The encrypted holder address is stored on Base.
+   - The encrypted holder address is stored on Linea.
    - Ciphertext is stored on-chain on Inco L1 via Hyperlane SDK.
 
 4. **QR Code Generation**:
@@ -64,16 +86,15 @@ StealthPass uses Fully Homomorphic Encryption (FHE) to provide anonymity for use
 
 ### Organizer Workflow
 
-1. Deploy an event contract on Base blockchain.
+1. Deploy an event contract on Linea blockchain.
 2. Specify event details (e.g., name, ticket price, location).
 3. Verify attendee tickets by using re-encryption calls and comparing against QR code data.
 4. Conduct raffles or special activities using encrypted ticket data.
 
 ---
 
-## Why Base Blockchain is a Key Choice
-
-Base Blockchain plays a pivotal role in the StealthPass Protocol by serving as the backbone for storing essential credentials such as NFTs, USDC, and user-specific data. While Inco is utilized as an encrypted IPFS-like gateway for secure on-chain data storage, Base ensures on-chain accessibility and integrity. Moreover, Base's composability allows encrypted keys and data to be used in advanced computations, enabling unique features like secure identity management and future data retrieval without compromising privacy. By combining Base's robust blockchain capabilities with Inco's privacy-focused encrypted storage, StealthPass provides a seamless and secure user experience.
+$1### Why Linea Blockchain is a Key Choice
+Linea Blockchain plays a pivotal role in the Encryptix Protocol by serving as the backbone for storing essential credentials such as NFTs, USDC, and user-specific data. While Inco is utilized as an encrypted IPFS-like gateway for secure on-chain data storage, Linea ensures on-chain accessibility and integrity. Moreover, Linea's composability allows encrypted keys and data to be used in advanced computations, enabling unique features like secure identity management and future data retrieval without compromising privacy. By combining Linea's robust blockchain capabilities with Inco's privacy-focused encrypted storage, Encryptix provides a seamless and secure user experience.
 
 - **Composability**:
   - FHE allows cryptographic operations to be performed directly on encrypted data.
@@ -84,7 +105,7 @@ Base Blockchain plays a pivotal role in the StealthPass Protocol by serving as t
   - Supports advanced functionalities like prize distribution or anonymous messaging.
 
 - **Flexibility**:
-  - Base contracts can access unique keys and perform computations.
+  - Linea contracts can access unique keys and perform computations.
   - Users can retrieve results in the future without revealing sensitive data.
 
 ---
@@ -93,12 +114,16 @@ Base Blockchain plays a pivotal role in the StealthPass Protocol by serving as t
 
 ## Protocol Architecture and User Flow
 
-StealthPass's architecture leverages the combined power of Base Blockchain, Inco's encrypted storage, and Hyperlane's cross-chain messaging to create a seamless event ticketing experience. The protocol's user flow ensures a smooth interaction for organizers and attendees, from ticket purchases to verifications:
+Encryptix's architecture leverages the combined power of Linea Blockchain, Inco's encrypted storage, and Hyperlane's cross-chain messaging to create a seamless event ticketing experience. The protocol's user flow ensures a smooth interaction for organizers and attendees, from ticket purchases to verifications:
 
 1. **User Registration**: Users can connect wallets using Privy or generate local wallets for anonymous interactions.
-2. **Ticket Storage**: Credentials, such as NFTs and USDC, are securely stored on Base Blockchain. Encrypted ticket data is offloaded to Inco, functioning as an IPFS-like storage but with enhanced privacy features.
+2. **Ticket Storage**: Credentials, such as NFTs and USDC, are securely stored on Linea Blockchain. Encrypted ticket data is offloaded to Inco, functioning as an IPFS-like storage but with enhanced privacy features.
 3. **Verification Process**: During verification, the organizer uses re-encryption calls via the Inco gateway to validate encrypted credentials. This ensures privacy while enabling seamless event access.
-4. **Composable Computations**: Base Blockchain enables advanced computations with encrypted data, allowing features like lotteries, identity management, and future data retrieval without exposing sensitive information.
+4. **Composable Computations**: Linea Blockchain enables advanced computations with encrypted data, allowing features like lotteries, identity management, and future data retrieval without exposing sensitive information.
+
+The flow diagram showcases the streamlined process for both users and organizers, highlighting the integration of cryptographic operations, data storage, and cross-chain communication:
+
+![Encryptix Protocol Architecture](https://github.com/user-attachments/assets/ee2c322c-2adb-4bb2-adfd-f64fca13ce37)
 
 ---
 
@@ -133,7 +158,7 @@ Manages encrypted ticket verification and raffle operations.
 
 ### Cross-Chain Messaging
 - **Hyperlane SDK**:
-  - Facilitates communication between Base and Inco L1.
+  - Facilitates communication between Linea and Inco L1.
   - Handles encrypted data transfer securely.
 
 ### FHE Integration
@@ -187,5 +212,4 @@ Manages encrypted ticket verification and raffle operations.
 ---
 
 ## Conclusion
-StealthPass redefines event ticketing with cutting-edge cryptography and blockchain technology. By leveraging FHE, Hyperlane, and AA wallets, it creates a user-friendly platform that prioritizes privacy, security, and composability. Whether for anonymous users, Web2 adopters, or seasoned Web3 enthusiasts, StealthPass ensures a seamless and secure ticketing experience.
-
+Encryptix redefines event ticketing with cutting-edge cryptography and blockchain technology. By leveraging FHE, Hyperlane, and AA wallets, it creates a user-friendly platform that prioritizes privacy, security, and composability. Whether for anonymous users, Web2 adopters, or seasoned Web3 enthusiasts, Encryptix ensures a seamless and secure ticketing experience.
